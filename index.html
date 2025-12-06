@@ -358,7 +358,7 @@
 
     <div id="audio-container">
       <audio id="song" autoplay loop>
-        <source src="audio/Christina Perri - A Thousand Years - Cut.mp3" type="audio/mp3" />
+        <!-- <source src="audio/Christina Perri - A Thousand Years - Cut.mp3" type="audio/mp3" /> -->
       </audio>
       <div class="audio-icon-wrapper" style="display: none" title="Klik untuk start/pause audio">
         <i class="bi bi-disc"></i>
@@ -399,8 +399,24 @@
       });
     </script>
     <script>
-      const rootElement = document.querySelector(":root");
+      const url = new URL(window.location.href);
+      const songParam = url.searchParams.get("alt");
       const song = document.querySelector("#song");
+
+      // Default (Perri)
+      const defaultSong = "audio/Christina Perri - A Thousand Years - Cut.mp3";
+
+      // Alternative song
+      const altSong = "audio/gunslinger.mp3";
+
+      // Switch audio if ?song=a7x is present
+      if (songParam === "a7x") {
+        song.src = altSong;
+      } else {
+        song.src = defaultSong;
+      }
+
+      const rootElement = document.querySelector(":root");
       const audioIconWrapper = document.querySelector(".audio-icon-wrapper");
       const audioIcon = document.querySelector(".audio-icon-wrapper i");
       let isPlaying = false;
